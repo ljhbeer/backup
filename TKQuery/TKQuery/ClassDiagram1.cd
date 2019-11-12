@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TKQuery.Data">
+    <Position X="2.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAECAgAAAAAAQAAAAEAAAAAAgAAAAMAAQAQDEAIAADQ=</HashCode>
+      <FileName>Data.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TKQuery.DataConfig">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCUBgECUAAAQBQACQACAAgBPDIAIRAgAAAQXAgpJDAA=</HashCode>
+      <FileName>DataConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TKQuery.Form1">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIBAIAMCBSAgKdHJBAqCjAACBBgHAgAQAFCgQAAIBiQ=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TKQuery.FormK">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gMDaqCMSBSAiPdGILAqCjAASBFkHA0BUEHSgYgAIA20=</HashCode>
+      <FileName>FormK.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TKQuery.FormN" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAhAEACAgBBAAAADAAAACAAAAAAAAMAAAAAIAAAA=</HashCode>
+      <FileName>FormN.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TKQuery.FormPPT" Collapsed="true">
+    <Position X="7.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAKQCCAgQACkAQDBkAQCECBAgQAAAA0AA6JAECA=</HashCode>
+      <FileName>FormPPT.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TKQuery.Program" Collapsed="true">
+    <Position X="8.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Db.ConnDb" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAIAAIAAAEQAA=</HashCode>
+      <FileName>DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputBox">
+    <Position X="8" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAACAAAAAAAAAEAAAAAAMAAQCAAEAAAA=</HashCode>
+      <FileName>input.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TKQuery.Properties.Resources" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TKQuery.Properties.Settings" Collapsed="true">
+    <Position X="8" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="宋体" Size="9" />
+</ClassDiagram>

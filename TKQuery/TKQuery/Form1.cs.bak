@@ -1,0 +1,247 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.IO;
+using System.Text.RegularExpressions;
+
+namespace TKQuery
+{
+    public partial class Form1 : Form
+    {
+        private string dbfullname;
+        private Db.ConnDb db;
+        private List<int> selectID;
+        private DataTable htmldt;
+        public Form1()
+        {
+            InitializeComponent();
+            htmldt = new DataTable();
+            selectID = new List<int>();
+            dbfullname = "D:\\back\\swtk.mdb";
+            if (File.Exists(dbfullname))
+            {
+                RefreshInit();
+            }
+        }
+        private void buttonQuery_Click(object sender, EventArgs e)
+        {
+            int tid = 0, kid = 0, items = 10;
+            if (comboBoxtx.SelectedIndex != -1)
+            {
+                if (comboBoxtx.SelectedIndex != 0)
+                    tid = (int)comboBoxtx.SelectedValue;
+            }
+            if (comboBoxzsd.SelectedIndex != -1)
+            {
+                if (comboBoxzsd.SelectedIndex != 0)
+                    kid = (int)comboBoxzsd.SelectedIndex;
+            }
+            if (comboBoxpages.SelectedIndex != -1)
+            {
+                items = (int)comboBoxpages.SelectedItem;
+            }
+            string keys = textBoxKeys.Text.Trim();
+            string sqlcondition = "";
+            if (tid != 0)
+                sqlcondition += " and  tid = " + tid;
+            if (kid != 0)
+                sqlcondition += "  and kid = " + kid;
+
+            if (keys != "")
+            {
+                string[] vkeys = keys.Split(new string[] { " ", "\t", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+                int ii = 0;
+                foreach (string k in vkeys)
+                {
+                    sqlcondition += "  and question.qview like '%" + k + "%'  ";
+                    if (ii++ > 2) break;
+                }
+                //sqlcondition += 
+            }
+            string sql = "select top " + items +
+                " '难度:'+trim(DFT) + ' 频率:' + trim(ufq)+ ' ' + trim(indate) as infozt," + 
+                " question.id,question.question,cname from question,questioninfo,tpapers where question.id = questioninfo.id and questioninfo.pid = tpapers.id "
+                + sqlcondition;
+            try
+            {
+                DataSet ds = db.query(sql);
+             //   dataGridView1.DataSource = ds.Tables[0];
+                string html = "";
+                int i = 1;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    html += FormatHtmlLI(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), i);
+                    i++;
+                    if (i > 10)
+                        break;
+                }
+                html = FormatHtml(html, "showcontenttemplate");  //---  [TID]
+                // <!--pagelist-->
+                html = FormatHtml(html, "htmltemplate");
+                string scode = "";
+                string sreplace = "";
+                if (GetHtmlReplaceCode(ref scode, ref sreplace, "js"))
+                {
+                    html = html.Replace(sreplace, scode);
+                }
+                webBrowser1.DocumentText = html ;
+            }
+            catch(System.Data.OleDb.OleDbException ole)
+            {
+                showfiletxt(ole.ToString());
+            }
+        }
+
+        private void buttonSetDatabase_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            if (fd.ShowDialog() == DialogResult.OK)
+            {
+                this.dbfullname = fd.FileName;
+                this.textBoxShow.Text = "当前数据库：" + dbfullname;
+                RefreshInit();
+            }
+        }
+        private void buttonshowitems_Click(object sender, EventArgs e)
+        {
+            //string html = "";
+            //DataTable dt = (DataTable)dataGridView1.DataSource;
+            ////DataRow[] vdr = dt.Select(" id in (" + selectID.ToString() + ")");
+            //string vid = "";
+            //foreach (int id in selectID)
+            //{
+            //    vid += id + ",";
+            //}
+            //DataRow[] vdr = dt.Select(" id in (" + vid + "0 )");
+            //int i = 1;
+            //foreach (DataRow dr in vdr)
+            //{
+            //    i++;
+            //    html += FormatHtmlLI(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), i);
+            //       // FormatHtmlLI(dr[1].ToString(), dr[2].ToString(),i);
+            //}
+            //html = FormatHtml(html, "ulxzt");
+            this.webBrowser1.DocumentText = "";// FormatHtml(html, "testcontent"); 
+        }
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == -1 || e.RowIndex == -1) return;
+            if (e.ColumnIndex == 0)
+            {
+                //if (dataGridView1[0, e.RowIndex].Value.ToString() == "-")
+                //{
+                //    this.selectID.Add((int)dataGridView1[1, e.RowIndex].Value);
+                //    dataGridView1[0, e.RowIndex].Value = "+";
+                //}
+                //else
+                //{
+                //    this.selectID.Remove((int)dataGridView1[1, e.RowIndex].Value);
+                //    dataGridView1[0, e.RowIndex].Value = "-";
+                //}
+            }
+            else if (e.ColumnIndex > 0 || e.RowIndex >= 0)
+            {
+               //// FormatHtmlLI(dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), i);
+               // string html = FormatHtmlLI(dataGridView1[0, e.RowIndex].Value.ToString(), dataGridView1[1, e.RowIndex].Value.ToString(),
+               //     dataGridView1[2, e.RowIndex].Value.ToString(), dataGridView1[3, e.RowIndex].Value.ToString(), 1);
+               // html = FormatHtml(html, "ulxzt");
+               // this.webBrowser1.DocumentText = FormatHtml(html, "testcontent"); 
+            }
+        }
+        private void RefreshInit()
+        {
+            comboBoxpages.Items.Clear();
+            comboBoxtx.DataSource = null;
+            comboBoxzsd.DataSource = null;
+            List<int> pages = new List<int>();
+            pages.AddRange(new int[] { 10, 50, 100, 200, 400, 800 });
+            foreach (int i in pages)
+                comboBoxpages.Items.Add(i);
+            comboBoxpages.SelectedIndex = 0;
+            try
+            {
+                db = new Db.ConnDb(dbfullname);
+                string sql = "select id,cname from ttx ";
+                DataSet ds = db.query(sql);
+                DataTable dt = ds.Tables[0];
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["id"] = 0;
+                    dr["cname"] = "不限";
+                    dt.Rows.InsertAt(dr, 0);
+                }
+                this.comboBoxtx.DataSource = dt;
+                this.comboBoxtx.DisplayMember = "cname";
+                this.comboBoxtx.ValueMember = "id";
+
+                sql = "select id,cname from tknowledges ";
+                ds = db.query(sql);
+                dt = ds.Tables[0];
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["id"] = 0;
+                    dr["cname"] = "不限";
+                    dt.Rows.InsertAt(dr, 0);
+                }
+                this.comboBoxzsd.DataSource = ds.Tables[0];
+                this.comboBoxzsd.DisplayMember = "cname";
+                this.comboBoxzsd.ValueMember = "id";
+
+                sql = "select * from thtml ";
+                ds = db.query(sql);
+                htmldt = ds.Tables[0];
+            }
+            catch
+            {
+                showfiletxt("数据库错误！，请重新选择或退出");
+            }
+        }
+        public void showfiletxt(string text)
+        {
+            this.textBoxShow.Text = text;
+        }
+        private string FormatHtml(string content,string name)
+        {
+            string scode = "";
+            string sreplace = "";           
+            if( GetHtmlReplaceCode(ref scode, ref sreplace, name) )
+            return scode.Replace(sreplace,content);
+            return content;
+        }
+       
+        private string FormatHtmlLI(string zt, string id, string content, string ly, int ipos)
+        {
+            string scode = "";
+            string sreplace = "";
+
+            content = "<P><SPAN>" + ipos +" .</SPAN>" + content.Substring(3);
+            if (GetHtmlReplaceCode(ref scode, ref sreplace, "itemtemplate"))
+            {
+                scode = scode.Replace(sreplace, content);
+                scode = scode.Replace("<!--contentinfo1-->", "<div style=\"float:left\"><p>" + zt + " 来源：" + ly + "</p></DIV>");
+                return scode.Replace("[id]", id);
+            }
+            return content;
+        }
+        private bool GetHtmlReplaceCode(ref string scode, ref string sreplace, string name)
+        {
+            DataRow[] dr = htmldt.Select(" CNAME = '" + name + "'");
+            if (dr.Count() == 1)
+            {
+                scode = dr[0]["code"].ToString().Trim();
+                sreplace = dr[0]["replace"].ToString().Trim();
+                if(scode !="" && sreplace!="")
+                return true;
+            }
+            return false;
+        }
+      
+    }
+}

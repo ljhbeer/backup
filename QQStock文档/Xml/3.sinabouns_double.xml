@@ -1,0 +1,18 @@
+<toolsxml>
+  <Src>
+    <Item SrcDbPath="E:\Project\Stock\UpdateStockBase\Stock.mdb" SrcDbTableT="stockcode" SrcID="id" SrcExp="&quot;http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/&quot; + right(scode,6) + &quot;.phtml&quot; as url" ProcessMode="url" SrcRule="{dbidbeginend=[1-10];&#xD;&#xA;multisubitem=[&lt;table id=&quot;sharebonus_1&quot;-&lt;/table&gt;][&lt;tbody&gt;-&lt;/tbody&gt;][&lt;tr&gt;-&lt;/tr&gt;];&#xD;&#xA;tablerow={&#xD;&#xA;name=ttcs; &#xD;&#xA;replace=[&lt;td class=&quot;head&quot;&gt;-&lt;td&gt;]; &#xD;&#xA;cols=[&lt;td&gt;-&lt;/td&gt;]; &#xD;&#xA;}&#xD;&#xA;}" />
+  </Src>
+  <Dst>
+    <Item DstIsSameToSrc="True" DstIsCreate="True" DstIsCreateID="True" dstpath="" dsttablename="sinabouns" DstsaveSrcIDAs="stockid" />
+  </Dst>
+  <DbSet>
+    <Item colname="PDate" valuetype="string" strdetail="{tablerowvalue={name=ttcs;colindex=0}}" />
+    <Item colname="SG" valuetype="double" strdetail="{tablerowvalue={name=ttcs;colindex=1};&#xD;&#xA; casecmd={ equals(--)=&gt;0;}}" />
+    <Item colname="ZZ" valuetype="double" strdetail="{tablerowvalue={name=ttcs;colindex=2};&#xD;&#xA; casecmd={ equals(--)=&gt;0;}}" />
+    <Item colname="PX" valuetype="double" strdetail="{tablerowvalue={name=ttcs;colindex=3};&#xD;&#xA; casecmd={ equals(--)=&gt;0;}}" />
+    <Item colname="progress" valuetype="string" strdetail="{tablerowvalue={name=ttcs;colindex=4};&#xD;&#xA; casecmd={ equals(--)=&gt;0;}}" />
+    <Item colname="CQDate" valuetype="string" strdetail="{tablerowvalue={name=ttcs;colindex=5}}" />
+    <Item colname="DJDate" valuetype="string" strdetail="{tablerowvalue={name=ttcs;colindex=6}}" />
+    <Item colname="SSDate" valuetype="string" strdetail="{tablerowvalue={name=ttcs;colindex=7}}" />
+  </DbSet>
+</toolsxml>

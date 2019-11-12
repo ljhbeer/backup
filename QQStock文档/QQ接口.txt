@@ -1,0 +1,5 @@
+var data={"code":0,"data":{"zqdm":"600005","zqjc":"\u6b66\u94a2\u80a1\u4efd","nflb":["2016","2015","2014","2013","2012","2011","2010","2009","2008","2007","2006","2005","2004","2003","2002","2001","2000","1999","1998","1997","1996"],"mgzb":[{"bgrq":"2016-09-30","tbmgsy":"0.04","tbmgsykc":"--","jqmgsy":"0.04","jqmgsykc":"--","jbmgsy":"0.04","xsmgsy":"0.04","mgjzc":"--","tzhmgjzc":"--","mgxssr":"4.25","mgxjll":"0.28"},{"bgrq":"2016-06-30","tbmgsy":"0.03","tbmgsykc":"--","jqmgsy":"0.03","jqmgsykc":"0.03","jbmgsy":"0.03","xsmgsy":"0.03","mgjzc":"--","tzhmgjzc":"--","mgxssr":"2.86","mgxjll":"0.10"},{"bgrq":"2016-03-31","tbmgsy":"0.00","tbmgsykc":"--","jqmgsy":"0.00","jqmgsykc":"--","jbmgsy":"0.00","xsmgsy":"0.00","mgjzc":"--","tzhmgjzc":"--","mgxssr":"1.28","mgxjll":"-0.06"},{"bgrq":"2015-12-31","tbmgsy":"-0.74","tbmgsykc":"--","jqmgsy":"-0.74","jqmgsykc":"-0.75","jbmgsy":"-0.74","xsmgsy":"-0.74","mgjzc":"--","tzhmgjzc":"--","mgxssr":"5.78","mgxjll":"0.14"}]}};
+
+http://stock.finance.qq.com/corp1/cwfx.html?mgzb-sh600005-2016
+
+http://comdata.finance.gtimg.cn/data/mgzb/sh600005/2015

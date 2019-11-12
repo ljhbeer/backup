@@ -1,0 +1,15 @@
+<toolsxml>
+  <Src>
+    <Item SrcDbPath="E:\Project\Source\Stock\Data\Stock.mdb" SrcDbTableT="stockcode" SrcID="id" SrcExp="scode" ProcessMode="url" SrcRule="{dbidbeginend=[1-10];&#xD;&#xA;multisubitem=[&lt;table id=&quot;sharebonus_1&quot;-&lt;/table&gt;][&lt;tbody&gt;-&lt;/tbody&gt;][&lt;tr&gt;-&lt;/tr&gt;];&#xD;&#xA;tablerow={&#xD;&#xA;name=ttcs; &#xD;&#xA;replace=[&lt;td class=&quot;head&quot;&gt;-&lt;td&gt;]; &#xD;&#xA;cols=[&lt;td&gt;-&lt;/td&gt;]; &#xD;&#xA;}&#xD;&#xA;}" />
+  </Src>
+  <Dst>
+    <Item DstIsSameToSrc="True" DstIsCreate="True" DstIsCreateID="True" dstpath="" dsttablename="sinabouns" DstsaveSrcIDAs="stockid" />
+  </Dst>
+  <DbSet>
+    <Item colname="MGZB" valuetype="string" strdetail="{urlreplace=[UREPLACE-MGZB]}" />
+    <Item colname="ylnl" valuetype="string" strdetail="{urlreplace=[UREPLACE-YLNL]}" />
+    <Item colname="yynl" valuetype="double" strdetail="{urlreplace=[UREPLACE-YYNL]}" />
+    <Item colname="cznl" valuetype="double" strdetail="{urlreplace=[UREPLACE-CZNL]}" />
+    <Item colname="djcw" valuetype="string" strdetail="{urlreplace=[UREPLACE-DJCW]}" />
+  </DbSet>
+</toolsxml>

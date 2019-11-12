@@ -1,0 +1,16 @@
+<toolsxml>
+  <Src>
+    <Item SrcDbPath="F:\Desk\Stock.mdb" SrcDbTableT="stockcode" SrcID="ID" SrcExp="&quot;http://f10.eastmoney.com/f10_v2/ShareholderResearch.aspx?code=&quot;+scode as url" ProcessMode="url" SrcRule="{dbidbeginend=[34-10000];&#xD;&#xA;multisubitem=[explain-&quot;sdltgd&quot;][&lt;/div&gt;-section];&#xD;&#xA;table={&#xD;&#xA;name=ttcs; &#xD;&#xA;location=[&lt;table id=&quot;Table0&quot;&gt;-&lt;/table&gt;]; &#xD;&#xA;rowgap=&lt;tr&gt;|&lt;/tr&gt;; &#xD;&#xA;colgap=&lt;th class=&quot;tips-colnameL&quot;&gt;|&lt;th class=&quot;tips-fieldnameL&quot;&gt;|&lt;/th&gt;|&lt;th class=&quot;tips-dataL&quot;&gt;|&lt;td class=&quot;tips-dataL&quot;&gt;|&lt;/td&gt;&#xD;&#xA;}&#xD;&#xA;}" />
+  </Src>
+  <Dst>
+    <Item DstIsSameToSrc="True" DstIsCreate="True" DstIsCreateID="False" dstpath="" dsttablename="StockTopTen" DstsaveSrcIDAs="ID" />
+  </Dst>
+  <DbSet>
+    <Item colname="日期" valuetype="string" strdetail="{tablevalue={name=ttcs;rowindex=0;colindex=0}}" />
+    <Item colname="股东人数" valuetype="int" strdetail="{tablevalue={name=ttcs;rowindex=1;colindex=1};&#xD;&#xA; casecmd={ equals(-)=&gt;0;endswith(亿)=&gt;N;endswith(万)=&gt;N*10000; }}" />
+    <Item colname="人均" valuetype="int" strdetail="{tablevalue={name=ttcs;rowindex=3;colindex=1};&#xD;&#xA; casecmd={ equals(-)=&gt;0;endswith(亿)=&gt;N;endswith(万)=&gt;N*10000; }}" />
+    <Item colname="股价" valuetype="double" strdetail="{tablevalue={name=ttcs;rowindex=6;colindex=1}}" />
+    <Item colname="TopTenRate" valuetype="double" strdetail="{tablevalue={name=ttcs;rowindex=8;colindex=1}}" />
+    <Item colname="TopTenLiuRate" valuetype="double" strdetail="{tablevalue={name=ttcs;rowindex=9;colindex=1}}" />
+  </DbSet>
+</toolsxml>

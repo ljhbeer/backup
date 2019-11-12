@@ -1,0 +1,24 @@
+<toolsxml>
+  <Src>
+    <Item SrcDbPath="F:\Desk\Stock.mdb" SrcDbTableT="stockcode" SrcID="ID" SrcExp="&quot;http://quote.eastmoney.com/&quot;+scode+&quot;.html&quot; as url" ProcessMode="url" SrcRule="{dbidbeginend=[0-5000];&#xD;&#xA;multisubitem=[公司核心数据-title3 pad5 mt5][&lt;div class=&quot;pad5&quot;&gt;-&lt;/div&gt;];&#xD;&#xA;}" />
+  </Src>
+  <Dst>
+    <Item DstIsSameToSrc="True" DstIsCreate="True" DstIsCreateID="False" dstpath="" dsttablename="StockHexin" DstsaveSrcIDAs="ID" />
+  </Dst>
+  <DbSet>
+    <Item colname="收益季度" valuetype="string" strdetail="[收益 (&lt;span title=&quot;第-季度&quot;&gt;]" />
+    <Item colname="收益" valuetype="double" strdetail="[收益 (&lt;span title=&quot;-&lt;/tr&gt;][)：-&lt;/td&gt;]" />
+    <Item colname="净资产" valuetype="double" strdetail="[净资产 ：-&lt;/td&gt;]" />
+    <Item colname="收入" valuetype="double" strdetail="{casecmd={ equals(-)=&gt;0;endswith(亿)=&gt;N;endswith(万)=&gt;N/10000;default()=&gt;0; }}[营收：-&lt;/td&gt;]" />
+    <Item colname="同比" valuetype="double" strdetail="[同比：-%&lt;/td&gt;]" />
+    <Item colname="净利润" valuetype="double" strdetail="{casecmd={ equals(-)=&gt;0;endswith(亿)=&gt;N;endswith(万)=&gt;N/10000;default()=&gt;0; }}[&lt;td&gt;净利润：-&lt;/td&gt;]" />
+    <Item colname="毛利率" valuetype="double" strdetail="[毛利率 ：-%&lt;/td&gt;]" />
+    <Item colname="净利率" valuetype="double" strdetail="[净利率：-%&lt;/td&gt;]" />
+    <Item colname="ROE" valuetype="double" strdetail="[ROE&lt;b title=&quot;净资产收益率&quot; class=&quot;hxsjccsyl&quot;&gt;&lt;/b&gt; ：-%&lt;/td&gt;]" />
+    <Item colname="负债率" valuetype="double" strdetail="[&lt;td&gt;负债率：-%&lt;/td&gt;]" />
+    <Item colname="总股本" valuetype="double" strdetail="{casecmd={ equals(-)=&gt;0;endswith(亿)=&gt;N;endswith(万)=&gt;N/10000;default()=&gt;0; }}[总股本：-&lt;/td&gt;]" />
+    <Item colname="流通股" valuetype="double" strdetail="{casecmd={ equals(-)=&gt;0;endswith(亿)=&gt;N;endswith(万)=&gt;N/10000;default()=&gt;0; }}[流通股：-&lt;/td&gt;]" />
+    <Item colname="每股未分配利润" valuetype="double" strdetail="{casecmd={ equals(-)=&gt;0;endswith(亿)=&gt;N;endswith(万)=&gt;N/10000; }}[&lt;td colspan=&quot;2&quot;&gt;每股未分配利润：-元&lt;/td&gt;]" />
+    <Item colname="上市时间" valuetype="string" strdetail="{casecmd={ equals(-)=&gt;0;endswith(亿)=&gt;N;endswith(万)=&gt;N/10000; }}[&lt;td colspan=&quot;2&quot; class=&quot;pb3&quot; &gt;上市时间：-&lt;/td&gt;]" />
+  </DbSet>
+</toolsxml>

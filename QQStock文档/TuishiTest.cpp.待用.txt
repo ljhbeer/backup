@@ -1,0 +1,57 @@
+private void RunNetTestTuishi()
+        {
+            List<Stock> usstocks = _stocks.stocks;
+            if( this.idstocks !=null )
+                usstocks = idstocks;
+            isruning = true;
+            //ToolsCXml.UnFormUpdate uf = new ToolsCXml.UnFormUpdate();
+            ToolsCXml.XmlConfig xcfg = new ToolsCXml.XmlConfig();
+            xcfg.db = cfg.db;
+            if (xcfg.LoadXml(cfg.HexinXml) && xcfg.InitData()                )
+            {//进行相应的更新操作
+                //Init净资产
+                BETag bt;
+                BETags bts;
+                InitBtsAndBt(xcfg, out bt, out bts);
+                InitStockUrl(xcfg);
+                //ToolsCXml.BETag BC = new ToolsCXml.BETag("[净资产</a>：-</td>]");
+
+                List<Stock> updatestock = new List<Stock>();
+                if (xcfg.SrcMode != "DB" || xcfg.ProcessMode == "txt" || xcfg.ProcessMode == "url")
+                    if (xcfg.db != null)
+                        UpdateTuishiStock(xcfg, bt, bts,usstocks);
+
+              
+            }
+            this.Invoke(new CompleteRunNet(CompleteUpdate));
+            isruning = false;
+        }
+        private void UpdateTuishiStock(XmlConfig xcfghx, BETag bt, BETags bts, List<Stock> stocks)
+        {
+            string tstxt = "";
+            foreach (Stock s in stocks)
+            {
+                try
+                {
+                    ThreadShowMsg("Tuishi: ID=" + s.ID);
+                    string txt = ToolsCXml.CItem.web.GetOKUrl(s.UpdateUrl);
+                    if (!txt.Contains("退市"))
+                        continue;
+                    tstxt += s.ID + "_<a href=\"" + s.UpdateUrl+"\">"+ s.Name+s.NumCode+"</a><br>";
+                }
+                catch (Exception ee)
+                {
+                    if (ee.Message.Contains("创建窗口句柄之前"))
+                        break;
+                    if(ee.Message.Contains("远程服务器返回错误: (404) 未找到"))
+                        tstxt += s.ID + "_<a href=\"" + s.UpdateUrl + "\">" + s.Name + s.NumCode + "</a>  未找到<br>";
+                    MFile.AppendAllText(exceptionfilename, "Tuishi" + ee.Message + " " + s.ID + " \r\n");
+                    //break;
+                }
+            }
+            if (tstxt != "")
+            {
+                tstxt = @"<head><meta http-equiv=""content-type"" content=""text/html;charset=utf-8""></head>" + tstxt + "\r\n";
+                MFile.WriteAllText("退市.html",tstxt);
+            }
+        } 
